@@ -3,7 +3,7 @@
     <p>Email: {{ user.email }}</p>
     <p>First name: {{ user.first_name }}</p>
     <p>Last name: {{ user.last_name }}</p>
-    <a href = "http://127.0.0.1:8000/home/">Go home</a>
+    <a href = "https://computer-science-a-level-programming.onrender.com/home/">Go home</a>
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit">Logout</button>
