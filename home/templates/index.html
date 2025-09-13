@@ -1,17 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="{% static 'home/style.css' %}">
-    </head>
     <body>
-
+        <div class="nav-container">
+            <div class="logo">Programming</div>
+            <div class="nav-right">
+                <a href="https://computer-science-a-level-programming.onrender.com/accounts/profile/">Profile</a>
+                {% if not user.is_authenticated %}
+                    <a href="https://computer-science-a-level-programming.onrender.com/accounts/signup/">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+        
         <h1>Programming!!</h1>
         <p>Welcome to the Programming Website!</p>
         <a href="https://computer-science-a-level-programming.onrender.com/homework/">View homework</a>
-        <a href="https://computer-science-a-level-programming.onrender.com/accounts/profile/">View profile</a>
-        {% if not user.is_authenticated %}
-            <a href="https://computer-science-a-level-programming.onrender.com/accounts/signup/">Sign Up</a>
-        {% endif %}
     </body>
 </html>
