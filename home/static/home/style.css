@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: #ffffff;
+    background: #ff0000;
     margin: 40px;
 }
 h1 {
@@ -21,20 +21,4 @@ a:hover {
 }
 p {
     color: #555;
-}
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.nav-right {
-    display: flex;
-    gap: 10px;
 }
