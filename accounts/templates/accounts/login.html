@@ -1,8 +1,23 @@
+<a href="https://computer-science-a-level-programming.onrender.com/home/">View home</a>
+<a href="https://computer-science-a-level-programming.onrender.com/accounts/signup">Signup</a>
 <form method="POST">
-    <a href="https://computer-science-a-level-programming.onrender.com/home/">View home</a>
-    <a href="https://computer-science-a-level-programming.onrender.com/accounts/signup">Signup</a>
     {% csrf_token %}
-    <label>Username:</label><input type="text" name="username"><br>
-    <label>Password:</label><input type="password" name="password"><br>
+    {{ form.as_p }}
     <button type="submit">Log In</button>
 </form>
+{% if form.errors %}
+    <ul>
+    {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    {% endfor %}
+    </ul>
+{% endif %}
+{% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
