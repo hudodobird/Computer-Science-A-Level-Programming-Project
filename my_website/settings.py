@@ -24,8 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-bh%t9$meyrn#=wg(!on$*i=h+*zo4$%+c2l8v*_*@6(-m84ss='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Controlled by env var DJANGO_DEBUG (defaults to True locally)
-DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
+# Controlled by env var DJANGO_DEBUG.
+# Defaults: True locally, False on Render (auto-detected via RENDER env var).
+DEBUG_DEFAULT = 'False' if os.getenv('RENDER') else 'True'
+DEBUG = os.getenv('DJANGO_DEBUG', DEBUG_DEFAULT).lower() == 'true'
 
 ALLOWED_HOSTS = ['computer-science-a-level-programming.onrender.com', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://computer-science-a-level-programming.onrender.com']
