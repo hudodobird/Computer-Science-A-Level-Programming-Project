@@ -1,24 +1,68 @@
-body {
+:root{
+    --bg:#f7f7f7; 
+    --text:#333; 
+    --muted:#555;
+    --primary:#f54444; 
+    --primary-hover:#c30404; 
+    --card:#fff; 
+    --shadow:0 10px 25px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
     font-family: Arial, sans-serif;
-    background: #f7f7f7;
-    margin: 40px;
+    background: var(--bg);
+    margin:0;
+    color:var(--text);
+    display:grid;
+    grid-template-rows:auto 1fr;
+    min-height:100vh;
 }
-h1 {
-    color: #333;
+
+.header{
+    position:relative;
+    padding:24px 24px 8px;
+    text-align:center;
 }
-a {
-    display: inline-block;
-    margin: 8px 0;
-    padding: 8px 16px;
-    background: #4285f4;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background 0.2s;
+.signup-link{
+    position:absolute;
+    right:24px; top:24px;
+    background:var(--primary);
+    color:#fff; text-decoration:none;
+    padding:8px 14px; border-radius:6px;
+    transition:background .2s;
 }
-a:hover {
-    background: #3367d6;
+.signup-link:hover{background:var(--primary-hover)}
+
+.title{margin:0; font-size:40px; color:var(--text)}
+.subtitle{margin:6px 0 0; color:var(--muted)}
+
+.main{display:grid; place-items:center; padding:24px}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(220px, 280px));
+    grid-template-rows:repeat(2, 160px);
+    gap:20px;
 }
-p {
-    color: #555;
+
+.card{
+    display:flex; align-items:center; justify-content:center;
+    background:var(--card);
+    color:#fff; text-decoration:none;
+    border-radius:12px; 
+    background:linear-gradient(160deg, var(--primary), #ff3232);
+    box-shadow:var(--shadow);
+    transition:transform .15s ease, box-shadow .15s ease;
+}
+.card:hover{transform:translateY(-3px); box-shadow:0 14px 30px rgba(0,0,0,.12), 0 4px 10px rgba(0,0,0,.06)}
+.card span{font-size:20px; font-weight:600}
+
+/* Ensure Homework occupies top-left cell (offset left) */
+.card--homework{grid-column:1; grid-row:1}
+
+/* Responsive: stack on narrow screens */
+@media (max-width:640px){
+    .cards{grid-template-columns:1fr; grid-template-rows:none}
 }

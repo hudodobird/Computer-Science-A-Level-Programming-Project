@@ -3,15 +3,33 @@
 <html>
     <head>
         <link rel="stylesheet" href="{% static 'home/style.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Programming</title>
     </head>
     <body>
+        <header class="header">
+            {% if not user.is_authenticated %}
+                <a class="signup-link" href="https://computer-science-a-level-programming.onrender.com/accounts/signup/">Sign Up</a>
+            {% endif %}
+            <h1 class="title">Radnor House Online Programming!</h1>
+            <p class="subtitle">Welcome to the Radnor House Programming Website!</p>
+        </header>
 
-        <h1>Programming!!</h1>
-        <p>Welcome to the Programming Website!</p>
-        <a href="https://computer-science-a-level-programming.onrender.com/homework/">View homework</a>
-        <a href="https://computer-science-a-level-programming.onrender.com/accounts/profile/">View profile</a>
-        {% if not user.is_authenticated %}
-            <a href="https://computer-science-a-level-programming.onrender.com/accounts/signup/">Sign Up</a>
-        {% endif %}
+        <main class="main">
+            <section class="cards">
+                <a class="card card--homework" href="https://computer-science-a-level-programming.onrender.com/homework/">
+                    <span>Homework</span>
+                </a>
+                <a class="card" href="https://computer-science-a-level-programming.onrender.com/accounts/profile/">
+                    <span>Profile</span>
+                </a>
+                <a class="card" href="https://computer-science-a-level-programming.onrender.com/accounts/login/">
+                    <span>Login</span>
+                </a>
+                <a class="card" href="#">
+                    <span>More</span>
+                </a>
+            </section>
+        </main>
     </body>
-</html>
+    </html>

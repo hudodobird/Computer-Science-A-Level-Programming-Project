@@ -1,14 +1,26 @@
-<a href="https://computer-science-a-level-programming.onrender.com/home/">View home</a>
-<a href="https://computer-science-a-level-programming.onrender.com/accounts/login">Login</a>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-</form>
-{% if messages %}
-    <ul>
-    {% for message in messages %}
-        <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'accounts/auth.css' %}">
+
+<header class="header">
+    <a class="signup-link" href="https://computer-science-a-level-programming.onrender.com/accounts/login">Login</a>
+    <h1 class="title">Create your account</h1>
+    <p class="subtitle">Join to access homework and your profile</p>
+    <a href="https://computer-science-a-level-programming.onrender.com/home/">View home</a>
+</header>
+
+<main class="main">
+    <section class="panel">
+        <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Sign Up</button>
+        </form>
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                    <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </section>
+</main>
