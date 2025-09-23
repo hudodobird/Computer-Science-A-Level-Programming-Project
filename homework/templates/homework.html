@@ -1,11 +1,41 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Homework Page</title>
-</head>
-<body>
-    <h1>Homework Page</h1>
-    <p>No new homework.</p>
-    <a href="https://computer-science-a-level-programming.onrender.com/home/">Back to Home</a>
-</body>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Homework</title>
+        <link rel="stylesheet" href="{% static 'homework/style.css' %}">
+    </head>
+    <body>
+        <header class="header">
+            <a class="home-link" href="https://computer-science-a-level-programming.onrender.com/home/">Home</a>
+            <h1 class="title">Homework</h1>
+            <p class="subtitle">Your current assignments</p>
+        </header>
+
+        <main class="main">
+            <section class="panel">
+                {% comment %} Example list structure - replace with dynamic content later {% endcomment %}
+                <ul class="assignments">
+                    <li class="assignment">
+                        <div class="meta">
+                            <h3 class="title">Loops and Functions</h3>
+                            <span class="due">Due: Friday</span>
+                        </div>
+                        <a class="cta" href="#">View</a>
+                    </li>
+                    <li class="assignment">
+                        <div class="meta">
+                            <h3 class="title">Django Templates</h3>
+                            <span class="due">Due: Next Monday</span>
+                        </div>
+                        <a class="cta" href="#">View</a>
+                    </li>
+                </ul>
+                {% if False %}
+                    <p class="empty">No new homework.</p>
+                {% endif %}
+            </section>
+        </main>
+    </body>
 </html>
