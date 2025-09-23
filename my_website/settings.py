@@ -135,3 +135,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 if not DEBUG:
     MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # Ensure Django recognizes HTTPS behind Render's proxy and secures cookies
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    # Optionally force HTTPS redirects in production
+    SECURE_SSL_REDIRECT = True
