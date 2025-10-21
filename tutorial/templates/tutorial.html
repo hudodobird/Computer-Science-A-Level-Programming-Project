@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Tutorials</title>
+		<link rel="stylesheet" href="{% static 'tutorial/style.css' %}">
+	</head>
+	<body>
+		<header class="header">
+			<h1 class="title">Tutorials</h1>
+			<p class="subtitle">Choose a topic to get started</p>
+		</header>
+
+		<main class="main">
+			<section class="grid">
+				{% for s in sections %}
+					<button class="tile" type="button">
+						<span>{{ s.title }}</span>
+					</button>
+				{% empty %}
+					<p class="empty">No tutorial sections yet.</p>
+				{% endfor %}
+			</section>
+		</main>
+	</body>
+</html>
