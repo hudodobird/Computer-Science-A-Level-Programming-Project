@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title }} — Tutorial</title>
+    <link rel="stylesheet" href="{% static 'tutorial/style.css' %}">
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="title">{{ title }}</h1>
+      <p class="subtitle">Work through the task, then run your code</p>
+    </header>
+
+    <main class="main">
+      <section class="section-layout">
+        <div class="question">
+          <h2 class="title--small">Question</h2>
+          <p class="prompt">{{ prompt }}</p>
+        </div>
+        <div class="editor">
+          <div class="py-runner">
+            <textarea class="code" spellcheck="false">{{ starter|default:"# Write your code here\n" }}</textarea>
+            <div class="actions">
+              <button class="run-btn" type="button">Run ▶</button>
+              <span class="status" aria-live="polite"></span>
+            </div>
+            <pre class="output" aria-label="Program output"></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="{% static 'tutorial/py_runner.js' %}"></script>
+  </body>
+</html>

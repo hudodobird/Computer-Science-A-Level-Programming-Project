@@ -45,6 +45,41 @@ body{
 }
 .tile:hover{ transform:translateY(-3px); box-shadow:0 14px 30px rgba(0,0,0,.12), 0 4px 10px rgba(0,0,0,.06); }
 .tile span{ font-size:18px; font-weight:600; }
+.tile--link{ text-decoration:none; }
 
 @media (max-width:900px){ .grid{ grid-template-columns:repeat(2, minmax(200px, 1fr)); } }
 @media (max-width:600px){ .grid{ grid-template-columns:1fr; } .title{font-size:32px} }
+
+/* Try-code section */
+.try-code{ margin-top:28px; width:100%; max-width:940px; }
+.title--small{ font-size:28px; margin:0 0 6px; }
+.py-runner{ background:#fafafa; border:1px solid #eee; border-radius:12px; padding:16px; box-shadow:var(--shadow); }
+.py-runner .code{ width:100%; height:180px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; font-size:14px; color:#111; background:#fff; border:1px solid #ddd; border-radius:8px; padding:12px; outline:none; }
+.py-runner .code:focus{ border-color:#bbb; box-shadow:0 0 0 3px rgba(245,68,68,.15); }
+.py-runner .actions{ display:flex; align-items:center; gap:10px; margin-top:10px; }
+.py-runner .run-btn{ background:linear-gradient(160deg, var(--primary), #ff3232); color:#fff; border:none; border-radius:10px; padding:10px 16px; font-weight:600; cursor:pointer; box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .15s ease; }
+.py-runner .run-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 24px rgba(0,0,0,.10), 0 3px 8px rgba(0,0,0,.05); }
+.py-runner .status{ color:var(--muted); font-size:14px; }
+.py-runner .output{ margin-top:10px; background:#111; color:#f2f2f2; padding:12px; border-radius:8px; max-height:220px; overflow:auto; }
+
+/* Section detail split layout */
+.section-layout{
+	display:grid;
+	grid-template-columns: 1fr 1fr;
+	gap:24px;
+	width:100%;
+	max-width:1200px;
+}
+.question{
+	background:#fff;
+	border:1px solid #eee;
+	border-radius:12px;
+	padding:18px 20px;
+	box-shadow:var(--shadow);
+}
+.prompt{ color:var(--text); font-size:16px; line-height:1.6; }
+.editor{ min-width:0; }
+
+@media (max-width:980px){
+	.section-layout{ grid-template-columns: 1fr; }
+}

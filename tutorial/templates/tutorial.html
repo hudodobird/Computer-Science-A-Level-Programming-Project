@@ -15,13 +15,35 @@
 		<main class="main">
 			<section class="grid">
 				{% for s in sections %}
-					<button class="tile" type="button">
+					<a class="tile tile--link" href="{% url 'tutorial_section' s.slug %}">
 						<span>{{ s.title }}</span>
-					</button>
+					</a>
 				{% empty %}
 					<p class="empty">No tutorial sections yet.</p>
 				{% endfor %}
 			</section>
+{% comment %} 
+			<section class="try-code">
+				<h2 class="title--small">Try Python</h2>
+				<p class="subtitle">Write code below and click Run. It executes safely in your browser.</p>
+				<div class="py-runner">
+					<textarea class="code" spellcheck="false"># Your first program
+print("Hello, Radnor!")
+
+# You can write multi-line code
+for i in range(3):
+    print("Line", i+1)
+</textarea>
+					<div class="actions">
+						<button class="run-btn" type="button">Run ▶</button>
+						<span class="status" aria-live="polite"></span>
+					</div>
+					<pre class="output" aria-label="Program output"></pre>
+				</div>
+			</section>
 		</main>
+
+		<script type="module" src="{% static 'tutorial/py_runner.js' %}"></script>
 	</body>
-</html>
+</html> 
+{% endcomment %}
