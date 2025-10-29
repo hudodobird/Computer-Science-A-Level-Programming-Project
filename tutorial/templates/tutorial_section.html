@@ -13,14 +13,36 @@
     </header>
 
     <main class="main">
-      <section class="section-layout">
+      <div class="steps">
+        <button class="step active" data-step="example">1. Example</button>
+        <button class="step" data-step="question">2. Your Task</button>
+      </div>
+
+  <section class="section-layout" data-example-code="{{ example_code|escapejs }}" data-question-code="{{ starter|escapejs }}" data-slug="{{ slug }}">
         <div class="question">
-          <h2 class="title--small">Question</h2>
-          <p class="prompt">{{ prompt }}</p>
+          <div class="panel panel--example">
+            <h2 class="title--small">Example</h2>
+            <p class="prompt">{{ example_text }}</p>
+            {% if user.is_authenticated %}
+              <button class="complete-btn" data-step="example" aria-pressed="{{ completed_example|yesno:'true,false' }}">{{ completed_example|yesno:'Completed,Mark complete' }}</button>
+            {% else %}
+              <a class="complete-btn complete-btn--disabled" href="{% url 'login' %}">Log in to track completion</a>
+            {% endif %}
+            <pre class="example-code">{{ example_code }}</pre>
+          </div>
+          <div class="panel panel--question hidden">
+            <h2 class="title--small">Your Task</h2>
+            <p class="prompt">{{ prompt }}</p>
+            {% if user.is_authenticated %}
+              <button class="complete-btn" data-step="question" aria-pressed="{{ completed_question|yesno:'true,false' }}">{{ completed_question|yesno:'Completed,Mark complete' }}</button>
+            {% else %}
+              <a class="complete-btn complete-btn--disabled" href="{% url 'login' %}">Log in to track completion</a>
+            {% endif %}
+          </div>
         </div>
         <div class="editor">
           <div class="py-runner">
-            <textarea class="code" spellcheck="false">{{ starter|default:"# Write your code here\n" }}</textarea>
+            <textarea class="code" spellcheck="false">{{ example_code|default:"# Example will appear here\n" }}</textarea>
             <div class="actions">
               <button class="run-btn" type="button">Run ▶</button>
               <span class="status" aria-live="polite"></span>
@@ -32,5 +54,7 @@
     </main>
 
     <script type="module" src="{% static 'tutorial/py_runner.js' %}"></script>
+    <script type="module" src="{% static 'tutorial/section_steps.js' %}"></script>
+    <script type="module" src="{% static 'tutorial/progress.js' %}"></script>
   </body>
 </html>
