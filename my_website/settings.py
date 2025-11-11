@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-bh%t9$meyrn#=wg(!on$*i=h+*zo4$%+c2l8v*_*@6(-m84ss=
 DEBUG_DEFAULT = 'False' if os.getenv('RENDER') else 'True'
 DEBUG = os.getenv('DJANGO_DEBUG', DEBUG_DEFAULT).lower() == 'true'
 
-ALLOWED_HOSTS = ['computer-science-a-level-programming.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = ['computer-science-a-level-programming.onrender.com', '127.0.0.1', 'localhost']
 CSRF_TRUSTED_ORIGINS = ['https://computer-science-a-level-programming.onrender.com']
 
 
