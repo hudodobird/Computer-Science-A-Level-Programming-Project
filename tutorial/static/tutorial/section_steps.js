@@ -20,6 +20,8 @@ function initSectionSteps() {
     const textarea = section.querySelector('.py-runner .code');
     const exampleCode = section.dataset.exampleCode || '';
     const questionCode = section.dataset.questionCode || '';
+    const showAnswerBtn = section.querySelector('.show-answer-btn');
+    const answerCode = section.querySelector('.answer-code');
 
     // Don't override initial textarea content rendered by the server.
     // We only swap contents when the user clicks a step. This avoids showing
@@ -41,9 +43,27 @@ function initSectionSteps() {
           examplePanel.classList.add('hidden');
           questionPanel.classList.remove('hidden');
           if (questionCode) textarea.value = decodeEscaped(questionCode);
+          // When switching to question, keep answer hidden by default
+          if (answerCode && showAnswerBtn) {
+            answerCode.classList.add('hidden');
+            answerCode.setAttribute('aria-hidden', 'true');
+            showAnswerBtn.setAttribute('aria-expanded', 'false');
+            showAnswerBtn.textContent = 'Show Answer';
+          }
         }
       });
     });
+
+    // Toggle answer visibility
+    if (showAnswerBtn && answerCode) {
+      showAnswerBtn.addEventListener('click', () => {
+        const isHidden = answerCode.classList.contains('hidden');
+        answerCode.classList.toggle('hidden');
+        answerCode.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
+        showAnswerBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+        showAnswerBtn.textContent = isHidden ? 'Hide Answer' : 'Show Answer';
+      });
+    }
   });
 }
 

@@ -50,7 +50,7 @@ body{
 @media (max-width:900px){ .grid{ grid-template-columns:repeat(2, minmax(200px, 1fr)); } }
 @media (max-width:600px){ .grid{ grid-template-columns:1fr; } .title{font-size:32px} }
 
-/* Try-code section */
+
 .try-code{ margin-top:28px; width:100%; max-width:940px; }
 .title--small{ font-size:28px; margin:0 0 6px; }
 .py-runner{ background:#fafafa; border:1px solid #eee; border-radius:12px; padding:16px; box-shadow:var(--shadow); }
@@ -62,7 +62,7 @@ body{
 .py-runner .status{ color:var(--muted); font-size:14px; }
 .py-runner .output{ margin-top:10px; background:#111; color:#f2f2f2; padding:12px; border-radius:8px; max-height:220px; overflow:auto; }
 
-/* Section detail split layout */
+
 .section-layout{
 	display:grid;
 	grid-template-columns: 1fr 1fr;
@@ -84,7 +84,6 @@ body{
 	.section-layout{ grid-template-columns: 1fr; }
 }
 
-/* Steps (Example / Question) */
 .steps{ display:flex; gap:10px; justify-content:center; margin:0 0 16px; }
 .steps .step{
 	background:linear-gradient(160deg, var(--primary), #ff3232);
@@ -95,9 +94,19 @@ body{
 .steps .step:hover{ transform:translateY(-1px); }
 
 .panel.hidden{ display:none; }
+.hidden{ display:none !important; }
 .example-code{ background:#111; color:#f2f2f2; padding:12px; border-radius:8px; overflow:auto; }
 
-/* Completion buttons */
 .complete-btn{ margin:8px 0 12px; background:linear-gradient(160deg, var(--primary), #ff3232); color:#fff; border:none; border-radius:10px; padding:8px 12px; font-weight:600; cursor:pointer; box-shadow:var(--shadow); }
 .complete-btn[aria-pressed="true"]{ background:linear-gradient(160deg, #2da44e, #2aa043); }
 .complete-btn.complete-btn--disabled{ display:inline-block; text-decoration:none; opacity:.8; cursor:pointer; }
+
+.show-answer-btn{
+	margin:8px 8px 12px 0;
+	background:linear-gradient(160deg, #6c757d, #5a6268);
+	color:#fff; border:none; border-radius:10px; padding:8px 12px; font-weight:600; cursor:pointer; box-shadow:var(--shadow);
+	transition:transform .15s ease, box-shadow .15s ease;
+}
+.show-answer-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 24px rgba(0,0,0,.10), 0 3px 8px rgba(0,0,0,.05); }
+.answer-code{ background:#111; color:#f2f2f2; padding:12px; border-radius:8px; overflow:auto; margin-top:8px; }
+

@@ -38,6 +38,11 @@
             {% else %}
               <a class="complete-btn complete-btn--disabled" href="{% url 'login' %}">Log in to track completion</a>
             {% endif %}
+
+            <div class="answer-controls">
+              <button type="button" class="show-answer-btn" aria-expanded="false">Show Answer</button>
+            </div>
+            <pre class="answer-code hidden" aria-hidden="true">{{ answer }}</pre>
           </div>
         </div>
         <div class="editor">
