@@ -20,7 +20,16 @@ body{
 	min-height:100vh;
 }
 
-.header{padding:24px 24px 8px; text-align:center}
+.header{position:relative; padding:24px 24px 8px; text-align:center}
+.header .homebutton{
+	position:absolute;
+	left:24px; top:24px;
+	background:var(--primary);
+	color:#fff; text-decoration:none;
+	padding:8px 14px; border-radius:6px;
+	transition:background .2s;
+}
+.header .homebutton:hover{ background:var(--primary-hover); }
 .title{margin:0; font-size:40px; color:var(--text)}
 .subtitle{margin:6px 0 0; color:var(--muted)}
 
@@ -110,3 +119,12 @@ body{
 .show-answer-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 24px rgba(0,0,0,.10), 0 3px 8px rgba(0,0,0,.05); }
 .answer-code{ background:#111; color:#f2f2f2; padding:12px; border-radius:8px; overflow:auto; margin-top:8px; }
 
+.homebutton{
+    position:absolute;
+    left:24px; top:24px;
+    background:var(--primary);
+    color:#fff; text-decoration:none;
+    padding:8px 14px; border-radius:6px;
+    transition:background .2s;
+}
+.homebutton:hover{background:var(--primary-hover)}

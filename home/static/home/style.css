@@ -35,6 +35,16 @@ body{
 }
 .signup-link:hover{background:var(--primary-hover)}
 
+.profile{
+    position:absolute;
+    left:24px; top:24px;
+    background:var(--primary);
+    color:#fff; text-decoration:none;
+    padding:8px 14px; border-radius:6px;
+    transition:background .2s;
+}
+.profile:hover{background:var(--primary-hover)}
+
 .title{margin:0; font-size:40px; color:var(--text)}
 .subtitle{margin:6px 0 0; color:var(--muted)}
 

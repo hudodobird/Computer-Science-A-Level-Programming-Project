@@ -25,7 +25,7 @@ body{
   padding:24px 24px 8px;
   text-align:center;
 }
-.header .home-link{
+.header .homebutton{
   position:absolute;
   left:24px; top:24px;
   background:var(--primary);
@@ -33,7 +33,7 @@ body{
   padding:8px 14px; border-radius:6px;
   transition:background .2s;
 }
-.header .home-link:hover{background:var(--primary-hover)}
+.header .homebutton:hover{background:var(--primary-hover)}
 
 .title{margin:0; font-size:40px; color:var(--text)}
 .subtitle{margin:6px 0 0; color:var(--muted)}
@@ -48,6 +48,7 @@ body{
   border-radius:12px;
   box-shadow:var(--shadow);
 }
+.header .home-link, .header .homebutton{ box-shadow:var(--shadow); }
 .panel h2{margin:0 0 12px}
 
 .assignments{display:grid; gap:14px; margin:0; padding:0; list-style:none}
@@ -55,6 +56,7 @@ body{
   display:flex; justify-content:space-between; align-items:center;
   padding:14px; border:1px solid #e5e7eb; border-radius:10px; background:#fff;
 }
+.header .home-link:hover, .header .homebutton:hover{background:var(--primary-hover)}
 .assignment .meta{display:flex; flex-direction:column; gap:4px}
 .assignment .title{font-size:18px; margin:0}
 .assignment .due{color:#777; font-size:13px}

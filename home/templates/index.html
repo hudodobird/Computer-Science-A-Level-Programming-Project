@@ -9,21 +9,22 @@
     <body>
         <header class="header">
             {% if not user.is_authenticated %}
-                <a class="signup-link" href="https://computer-science-a-level-programming.onrender.com/accounts/signup/">Sign Up</a>
+                <a class="signup-link" href="{% url 'signup' %}">Sign Up</a>
             {% endif %}
+            <a class="profile" href="{% url 'profile' %}">Profile</a>
             <h1 class="title">Radnor House Online Programming!</h1>
             <p class="subtitle">Welcome to the Radnor House Programming Website!</p>
         </header>
 
         <main class="main">
             <section class="cards">
-                <a class="card" href="https://computer-science-a-level-programming.onrender.com/homework/">
+                <a class="card" href="{% url 'homework' %}">
                     <span>Homework</span>
                 </a>
-                <a class="card" href="https://computer-science-a-level-programming.onrender.com/accounts/profile/">
-                    <span>Profile</span>
+                <a class="card" href="{% url 'pastpapers:questions' %}">
+                    <span>Past Papers</span>
                 </a>
-                <a class="card" href="https://computer-science-a-level-programming.onrender.com/tutorial/">
+                <a class="card" href="{% url 'tutorial_home' %}">
                     <span>Tutorial</span>
                 </a>
                 <a class="card" href="#">

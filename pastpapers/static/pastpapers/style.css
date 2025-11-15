@@ -1,0 +1,49 @@
+:root{
+  --bg:#f7f7f7;
+  --text:#333;
+  --muted:#555;
+  --primary:#f54444;
+  --primary-hover:#c30404;
+  --card:#fff;
+  --border:#e5e7eb;
+  --shadow:0 10px 25px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+  --easy:#2ecc71;
+  --medium:#f1c40f;
+  --hard:#e74c3c;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial, sans-serif}
+
+.pp-container{max-width:1100px;margin:0 auto;padding:24px}
+.pp-header{margin-bottom:12px}
+.pp-header h1{margin:0 0 4px 0;font-weight:700;letter-spacing:.3px}
+.pp-sub{margin:0;color:var(--muted)}
+
+.pp-scroll{height:calc(100vh - 96px);overflow-y:auto;padding-right:4px}
+.pp-year-block{margin:16px 0 28px 0;border:1px solid var(--border);border-radius:12px;background:var(--card);box-shadow:var(--shadow)}
+.pp-year-sticky{position:sticky;top:0;background:var(--card);padding:10px 14px;border-bottom:1px solid var(--border);font-weight:700;z-index:1;color:var(--primary)}
+.pp-questions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding:14px}
+
+.pp-card{display:flex;flex-direction:column;gap:10px;padding:14px;border:1px solid var(--border);background:var(--card);border-radius:10px;text-decoration:none;color:var(--text);transition:transform .08s ease, border-color .2s ease, box-shadow .15s ease}
+.pp-card:hover{transform:translateY(-2px);border-color:var(--primary);box-shadow:0 12px 24px rgba(0,0,0,.10), 0 3px 8px rgba(0,0,0,.05)}
+.pp-card.is-placeholder{opacity:.8;cursor:default}
+.pp-card-title{font-weight:600}
+.pp-chip{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.85rem;color:#111}
+.pp-easy{background:var(--easy)}
+.pp-medium{background:var(--medium)}
+.pp-hard{background:var(--hard)}
+
+@media (max-width:600px){
+  .pp-questions-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+}
+
+
+.homebutton{
+    position:absolute;
+    left:24px; top:24px;
+    background:var(--primary);
+    color:#fff; text-decoration:none;
+    padding:8px 14px; border-radius:6px;
+    transition:background .2s;
+}
+.homebutton:hover{background:var(--primary-hover)}

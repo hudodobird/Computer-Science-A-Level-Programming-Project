@@ -2,10 +2,10 @@
 <link rel="stylesheet" href="{% static 'accounts/auth.css' %}">
 
 <header class="header">
-    <a class="signup-link" href="https://computer-science-a-level-programming.onrender.com/accounts/signup">Signup</a>
+    <a class="signup-link" href="{% url 'signup' %}">Signup</a>
     <h1 class="title">Welcome back</h1>
     <p class="subtitle">Log in to continue</p>
-    <a href="https://computer-science-a-level-programming.onrender.com/home/">View home</a>
+    <a href="{% url 'home' %}">View home</a>
   
 </header>
 

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Past Paper Questions</title>
+  <link rel="stylesheet" href="{% static 'pastpapers/style.css' %}">
+</head>
+<body>
+  <a class="homebutton" href="{% url 'home' %}">Home</a>
+  <main class="pp-container">
+    <header class="pp-header">
+      <h1>Past Paper Questions</h1>
+      <p class="pp-sub">Scroll to browse years and questions</p>
+    </header>
+
+    <section class="pp-scroll">
+      {% for grp in groups %}
+      <div class="pp-year-block">
+        <div class="pp-year-sticky">{{ grp.year }}</div>
+        <div class="pp-questions-grid">
+          {% for q in grp.questions %}
+            {% if q.pk %}
+              <a class="pp-card" href="#" title="CS {{ grp.year }} Q{{ q.question_number }}">
+                <div class="pp-card-title">Q{{ q.question_number }}</div>
+                <div class="pp-chip pp-{{ q.difficulty }}">{{ q.get_difficulty_display }}</div>
+              </a>
+            {% else %}
+              <div class="pp-card is-placeholder" title="Placeholder">
+                <div class="pp-card-title">Q{{ q.question_number }}</div>
+                <div class="pp-chip pp-{{ q.difficulty }}">{{ q.difficulty|title }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% empty %}
+        <p>No questions yet.</p>
+      {% endfor %}
+    </section>
+  </main>
+</body>
+</html>
