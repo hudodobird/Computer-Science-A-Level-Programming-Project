@@ -81,3 +81,13 @@ body{
 }
 .panel button[type="submit"]:hover{background:var(--primary-hover)}
 .panel .messages{margin:8px 0 0; padding-left:18px}
+
+.homebutton{
+    position:absolute;
+    left:24px; top:24px;
+    background:var(--primary);
+    color:#fff; text-decoration:none;
+    padding:8px 14px; border-radius:6px;
+    transition:background .2s;
+}
+.homebutton:hover{background:var(--primary-hover)}

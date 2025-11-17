@@ -33,7 +33,7 @@ def tutorial_section(request, slug: str):
 			"title": "Python Basics",
 			"prompt": "Print 'Hello, world!' and assign a variable called name with your name.",
 			"starter": "# Write your code here\n",
-			"answer": "print('Hello, world!')\nname = 'Your Name'\nprint('Name:', name)\n",
+			"answer": "print('Hello, world!')\nname = 'Jim'\nprint('Name:', name)\n",
 			"example_text": "This example prints a greeting and a variable value.",
 			"example_code": "print('Hello, world!')\nname = 'Alex'\nprint('Name:', name)\n",
 		},

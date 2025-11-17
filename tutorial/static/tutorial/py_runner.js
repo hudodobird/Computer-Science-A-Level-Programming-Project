@@ -41,13 +41,22 @@ async function runPython(code, outputEl, statusEl) {
   outputEl.textContent = "";
   if (statusEl) statusEl.textContent = "Running...";
   try {
-    pyodide.setStdout({ batched: (s) => { outputEl.textContent += s; } });
-    pyodide.setStderr({ batched: (s) => { outputEl.textContent += s; } });
+    // Simple, robust line handling using 'batched' chunks
+    const appendChunk = (s) => {
+      if (!s) return;
+      s = String(s).replace(/\r\n/g, "\n");
+      outputEl.textContent += s;
+      if (!s.endsWith("\n")) outputEl.textContent += "\n";
+      outputEl.scrollTop = outputEl.scrollHeight;
+    };
+    pyodide.setStdout({ batched: appendChunk });
+    pyodide.setStderr({ batched: appendChunk });
 
     const result = await pyodide.runPythonAsync(code);
     if (typeof result !== "undefined") {
       outputEl.textContent += String(result) + "\n";
     }
+    // Nothing to flush when using batched appends
     if (statusEl) statusEl.textContent = "Done.";
   } catch (err) {
     outputEl.textContent += `\n${err}\n`;
