@@ -66,5 +66,4 @@ body{
 }
 .assignment .cta:hover{background:var(--primary-hover)}
 
-/* Empty state */
 .empty{color:var(--muted); text-align:center; padding:8px 0}
