@@ -15,6 +15,8 @@ class Question(models.Model):
 		default=Difficulty.MEDIUM,
 		help_text="Relative difficulty of the question",
 	)
+	image = models.ImageField(upload_to="pastpapers/questions/%Y/%m/%d/", null=True, blank=True)
+	answer_text = models.TextField(blank=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
@@ -27,5 +29,5 @@ class Question(models.Model):
 		ordering = ["-year", "question_number"]
 
 	def __str__(self) -> str:
-		return f"CS {self.year} Q{self.question_number} ({self.get_difficulty_display()})"
+		return f"{self.year} Q{self.question_number} ({self.get_difficulty_display()})"
 

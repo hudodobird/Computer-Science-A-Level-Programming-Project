@@ -22,7 +22,7 @@
         <div class="pp-questions-grid">
           {% for q in grp.questions %}
             {% if q.pk %}
-              <a class="pp-card" href="#" title="CS {{ grp.year }} Q{{ q.question_number }}">
+              <a class="pp-card" href="{% url 'pastpapers:detail' q.pk %}" title="CS {{ grp.year }} Q{{ q.question_number }}">
                 <div class="pp-card-title">Q{{ q.question_number }}</div>
                 <div class="pp-chip pp-{{ q.difficulty }}">{{ q.get_difficulty_display }}</div>
               </a>

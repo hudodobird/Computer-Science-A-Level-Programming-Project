@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{question.year}}, Q{{question.question_number}} — Past Papers</title>
+  <link rel="stylesheet" href="{% static 'pastpapers/style.css' %}">
+  <link rel="stylesheet" href="{% static 'tutorial/style.css' %}">
+  <style>
+    /* Change the tutorial CSS to work with past papers */
+    .pp-detail-container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+    .pp-image-panel { 
+      background: #fff; 
+      padding: 16px; 
+      border-radius: 12px; 
+      box-shadow: var(--shadow); 
+      overflow: auto; 
+      max-height: 85vh;
+    }
+    .pp-image-panel img { 
+      width: 100%; 
+      height: auto; 
+      display: block; 
+    }
+    .section-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .section-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a class="homebutton" href="{% url 'pastpapers:questions' %}">Back</a>
+    <h1 class="title">{{question.year}}, Q{{question.question_number}}</h1>
+  </header>
+
+  <main class="pp-detail-container">
+    <section class="section-layout">
+      <!-- Left: -->
+      <div class="pp-image-panel">
+        {% if question.image %}
+          <img src="{{ question.image.url }}" alt="{{ question }}">
+        {% else %}
+          <p style="text-align:center; padding: 40px; color: #666;">No image available for this question.</p>
+        {% endif %}
+      </div>
+
+      <!-- Right: -->
+      <div class="editor">
+        <div class="py-runner">
+          <textarea class="code" spellcheck="false"># Write your code here</textarea>
+          <div class="actions">
+            <button class="run-btn" type="button">Run ▶</button>
+            <span class="status" aria-live="polite"></span>
+          </div>
+          <pre class="output" aria-label="Program output"></pre>
+        </div>
+
+        {% if question.answer_text %}
+        <div class="panel" style="margin-top: 24px;">
+          <button type="button" class="show-answer-btn" id="toggleAnswer">Show Answer</button>
+          <pre class="answer-code hidden" id="answerBlock">{{ question.answer_text }}</pre>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="{% static 'tutorial/py_runner.js' %}"></script>
+  <script>
+    const btn = document.getElementById('toggleAnswer');
+    const block = document.getElementById('answerBlock');
+    if (btn && block) {
+      btn.addEventListener('click', () => {
+        const isHidden = block.classList.contains('hidden');
+        if (isHidden) {
+          block.classList.remove('hidden');
+          btn.textContent = 'Hide Answer';
+        } else {
+          block.classList.add('hidden');
+          btn.textContent = 'Show Answer';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

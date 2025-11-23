@@ -1,5 +1,5 @@
 from collections import defaultdict
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Question
 
 
@@ -39,4 +39,9 @@ def questions_list(request):
 	return render(request, 'pastpapers/questions.html', {
 		'groups': groups,
 	})
+
+
+def question_detail(request, pk):
+	question = get_object_or_404(Question, pk=pk)
+	return render(request, 'pastpapers/detail.html', {'question': question})
 
