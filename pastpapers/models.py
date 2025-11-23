@@ -16,7 +16,14 @@ class Question(models.Model):
 		help_text="Relative difficulty of the question",
 	)
 	image = models.ImageField(upload_to="pastpapers/questions/%Y/%m/%d/", null=True, blank=True)
+	image_2 = models.ImageField(
+		upload_to="pastpapers/questions/%Y/%m/%d/",
+		null=True,
+		blank=True,
+		verbose_name="Second Image (Optional)"
+	)
 	answer_text = models.TextField(blank=True)
+	starter_code = models.TextField(blank=True, default="# Write your code here")
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 

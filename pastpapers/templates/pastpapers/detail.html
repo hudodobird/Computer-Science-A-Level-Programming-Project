@@ -46,7 +46,11 @@
       <div class="pp-image-panel">
         {% if question.image %}
           <img src="{{ question.image.url }}" alt="{{ question }}">
-        {% else %}
+        {% endif %}
+        {% if question.image_2 %}
+          <img src="{{ question.image_2.url }}" alt="{{ question }} (Part 2)" style="margin-top: 16px;">
+        {% endif %}
+        {% if not question.image and not question.image_2 %}
           <p style="text-align:center; padding: 40px; color: #666;">No image available for this question.</p>
         {% endif %}
       </div>
@@ -54,7 +58,7 @@
       <!-- Right: -->
       <div class="editor">
         <div class="py-runner">
-          <textarea class="code" spellcheck="false"># Write your code here</textarea>
+          <textarea class="code" spellcheck="false">{{ question.starter_code }}</textarea>
           <div class="actions">
             <button class="run-btn" type="button">Run ▶</button>
             <span class="status" aria-live="polite"></span>
