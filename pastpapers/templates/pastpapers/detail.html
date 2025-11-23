@@ -57,6 +57,17 @@
 
       <!-- Right: -->
       <div class="editor">
+        {% if user.is_authenticated %}
+        <div style="margin-bottom: 16px; text-align: right;">
+          <button id="markDoneBtn" 
+                  class="complete-btn {% if is_completed %}completed{% endif %}" 
+                  data-pk="{{ question.pk }}" 
+                  aria-pressed="{{ is_completed|yesno:'true,false' }}">
+            {% if is_completed %}Completed{% else %}Mark as Done{% endif %}
+          </button>
+        </div>
+        {% endif %}
+
         <div class="py-runner">
           <textarea class="code" spellcheck="false">{{ question.starter_code }}</textarea>
           <div class="actions">
@@ -77,6 +88,7 @@
   </main>
 
   <script type="module" src="{% static 'tutorial/py_runner.js' %}"></script>
+  <script src="{% static 'pastpapers/progress.js' %}"></script>
   <script>
     const btn = document.getElementById('toggleAnswer');
     const block = document.getElementById('answerBlock');

@@ -38,3 +38,17 @@ class Question(models.Model):
 	def __str__(self) -> str:
 		return f"{self.year} Q{self.question_number} ({self.get_difficulty_display()})"
 
+
+class QuestionCompletion(models.Model):
+	user = models.ForeignKey("auth.User", on_delete=models.CASCADE, related_name="question_completions")
+	question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="completions")
+	completed = models.BooleanField(default=False)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	class Meta:
+		unique_together = ("user", "question")
+
+	def __str__(self):
+		status = "Done" if self.completed else "In Progress"
+		return f"{self.user.username} - {self.question} ({status})"
+
