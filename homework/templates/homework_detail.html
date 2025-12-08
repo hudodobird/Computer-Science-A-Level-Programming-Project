@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ assignment.title }}</title>
+  <link rel="stylesheet" href="{% static 'pastpapers/style.css' %}">
+  <link rel="stylesheet" href="{% static 'tutorial/style.css' %}">
+  <link rel="stylesheet" href="{% static 'homework/style.css' %}">
+</head>
+<body>
+  <header class="header">
+    <a class="homebutton detail-back" href="{% url 'homework' %}">Back</a>
+    <h1 class="title">{{ assignment.title }}</h1>
+  </header>
+
+  <main class="pp-detail-container">
+    <section class="section-layout">
+      <!-- Left: Description -->
+      <div class="desc-panel">
+        <h2>Instructions</h2>
+        <div style="line-height: 1.6;">
+            {{ assignment.description|linebreaks }}
+        </div>
+        
+        {% if submission.feedback %}
+        <div style="margin-top: 32px; padding: 16px; background: #f8f9fa; border-left: 4px solid var(--primary); border-radius: 4px;">
+            <h3 style="margin-top: 0;">Teacher Feedback</h3>
+            <p><strong>Grade:</strong> {{ submission.grade }}</p>
+            <div>{{ submission.feedback|linebreaks }}</div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Right: Editor -->
+      <div class="editor-panel">
+        <div class="toolbar">
+            <span id="saveStatus" style="margin-right: auto; color: #666; align-self: center;"></span>
+            <button class="btn btn-save" id="saveBtn">Save Draft</button>
+            <button class="btn btn-submit" id="submitBtn">Submit Homework</button>
+        </div>
+
+        <div class="py-runner">
+          <textarea class="code" id="codeEditor" spellcheck="false">{{ submission.code }}</textarea>
+          <div class="actions">
+            <button class="run-btn" type="button">Run ▶</button>
+            <span class="status" aria-live="polite"></span>
+          </div>
+          <pre class="output" aria-label="Program output"></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="{% static 'tutorial/py_runner.js' %}"></script>
+  <script>
+    const saveBtn = document.getElementById('saveBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const codeEditor = document.getElementById('codeEditor');
+    const saveStatus = document.getElementById('saveStatus');
+    const pk = "{{ assignment.pk }}";
+
+    async function sendData(action) {
+        saveStatus.textContent = action === 'save' ? 'Saving...' : 'Submitting...';
+        try {
+            const res = await fetch(`/homework/${pk}/submit/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    code: codeEditor.value,
+                    action: action
+                })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                saveStatus.textContent = data.message;
+                if (action === 'submit') {
+                    saveStatus.style.color = 'green';
+                    setTimeout(() => window.location.href = "{% url 'homework' %}", 1000);
+                }
+            } else {
+                saveStatus.textContent = 'Error saving.';
+            }
+        } catch (e) {
+            console.error(e);
+            saveStatus.textContent = 'Network error.';
+        }
+    }
+
+    saveBtn.addEventListener('click', () => sendData('save'));
+    submitBtn.addEventListener('click', () => {
+        if(confirm('Are you sure you want to submit? You can still edit later if needed.')) {
+            sendData('submit');
+        }
+    });
+    
+    // Auto-save every 30 seconds
+    setInterval(() => {
+        if (document.activeElement === codeEditor) {
+            sendData('save');
+        }
+    }, 30000);
+  </script>
+</body>
+</html>

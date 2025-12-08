@@ -1,41 +1,54 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Homework</title>
-        <link rel="stylesheet" href="{% static 'homework/style.css' %}">
-    </head>
-    <body>
-        <header class="header">
-            <a class="homebutton" href="{% url 'home' %}">Home</a>
-            <h1 class="title">Homework</h1>
-            <p class="subtitle">Your current assignments</p>
-        </header>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homework</title>
+  <link rel="stylesheet" href="{% static 'pastpapers/style.css' %}">
+  <style>
+    .hw-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); padding: 24px; }
+    .hw-card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: var(--shadow); text-decoration: none; color: inherit; display: block; transition: transform 0.2s; }
+    .hw-card:hover { transform: translateY(-4px); }
+    .hw-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 8px; }
+    .hw-meta { color: #666; font-size: 0.9rem; margin-bottom: 12px; }
+    .hw-status { display: inline-block; padding: 4px 12px; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
+    .status-todo { background: #eee; color: #555; }
+    .status-draft { background: #fff3cd; color: #856404; }
+    .status-submitted { background: #d4edda; color: #155724; }
+    .status-graded { background: #cce5ff; color: #004085; }
+  </style>
+</head>
+<body>
+  <a class="homebutton" href="{% url 'home' %}">Home</a>
+  <main class="pp-container">
+    <header class="pp-header">
+      <h1>Homework Assignments</h1>
+      <p class="pp-sub">View and complete your assigned tasks</p>
+    </header>
 
-        <main class="main">
-            <section class="panel">
-                {% comment %} Example list structure - replace with dynamic content later {% endcomment %}
-                <ul class="assignments">
-                    <li class="assignment">
-                        <div class="meta">
-                            <h3 class="title">Loops and Functions</h3>
-                            <span class="due">Due: Friday</span>
-                        </div>
-                        <a class="cta" href="#">View</a>
-                    </li>
-                    <li class="assignment">
-                        <div class="meta">
-                            <h3 class="title">Django Templates</h3>
-                            <span class="due">Due: Next Monday</span>
-                        </div>
-                        <a class="cta" href="#">View</a>
-                    </li>
-                </ul>
-                {% if False %}
-                    <p class="empty">No new homework.</p>
-                {% endif %}
-            </section>
-        </main>
-    </body>
+    <div class="hw-grid">
+      {% for a in assignments %}
+      <a href="{% url 'homework_detail' a.pk %}" class="hw-card">
+        <div class="hw-title">{{ a.title }}</div>
+        <div class="hw-meta">
+            Due: {{ a.due_date|date:"M d, Y H:i"|default:"No deadline" }}
+        </div>
+        <div>
+            <span class="hw-status status-{{ a.user_status }}">
+                {{ a.user_status|title }}
+            </span>
+            {% if a.user_grade %}
+            <span class="hw-status status-graded" style="margin-left: 8px;">
+                Grade: {{ a.user_grade }}
+            </span>
+            {% endif %}
+        </div>
+      </a>
+      {% empty %}
+      <p style="padding: 24px; text-align: center; grid-column: 1/-1;">No homework assigned yet.</p>
+      {% endfor %}
+    </div>
+  </main>
+</body>
 </html>
