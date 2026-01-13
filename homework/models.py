@@ -46,7 +46,7 @@ class Submission(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name="homework_submissions")
     code = models.TextField(blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
-    grade = models.CharField(max_length=10, blank=True, help_text="e.g. A, 8/10, Pass")
+    grade = models.CharField(max_length=10, blank=True, help_text="e.g. A, 7/10, Pass")
     feedback = models.TextField(blank=True)
     submitted_at = models.DateTimeField(auto_now=True)
 
