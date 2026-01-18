@@ -147,3 +147,6 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     # Optionally force HTTPS redirects in production
     SECURE_SSL_REDIRECT = True
+# Email Settings (Development)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
