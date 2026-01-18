@@ -60,12 +60,46 @@ def submit_homework(request, pk):
     )
     
     submission.code = code
-    if action == 'submit':
-        submission.status = 'submitted'
     
+    if action == 'submit':
+        from .start_marking import run_test_cases
+        
+        # Run auto-marking
+        passed, feedback = run_test_cases(submission)
+        
+        if passed:
+            submission.status = 'submitted'
+            submission.feedback = feedback # Or some success message
+            submission.save()
+            return JsonResponse({
+                'status': submission.status,
+                'message': 'All tests passed! Submitted successfully.',
+                'feedback': feedback
+            })
+        else:
+            submission.status = 'draft' # Keep as draft so they can fix it
+            submission.feedback = feedback
+            submission.save()
+            return JsonResponse({
+                'status': 'draft',
+                'message': 'Tests failed. Please try again or request manual review.',
+                'feedback': feedback,
+                'can_request_review': True
+            })
+
+    if action == 'request_review':
+        submission.status = 'submitted'
+        submission.manual_review_requested = True
+        submission.feedback = "Manual review requested by student. \n\n" + submission.feedback # Keep the auto-grader error log
+        submission.save()
+        return JsonResponse({
+            'status': 'submitted',
+            'message': 'Submitted for manual review.',
+        })
+
     submission.save()
     
     return JsonResponse({
         'status': submission.status,
-        'message': 'Saved' if action == 'save' else 'Submitted successfully'
+        'message': 'Saved draft'
     })

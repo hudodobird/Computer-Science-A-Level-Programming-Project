@@ -49,9 +49,20 @@ class Submission(models.Model):
     grade = models.CharField(max_length=10, blank=True, help_text="e.g. A, 7/10, Pass")
     feedback = models.TextField(blank=True)
     submitted_at = models.DateTimeField(auto_now=True)
+    manual_review_requested = models.BooleanField(default=False, help_text="Student requested teacher review despite test failures")
 
     class Meta:
         unique_together = ('assignment', 'student')
 
     def __str__(self):
         return f"{self.student.username} - {self.assignment.title}"
+
+
+class TestCase(models.Model):
+    """Test cases for auto-grading assignments."""
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name="test_cases")
+    input_text = models.TextField(blank=True, help_text="Input to provide to stdin (optional)")
+    expected_output = models.TextField(help_text="Expected output from stdout")
+    
+    def __str__(self):
+        return f"Test Case for {self.assignment.title}"

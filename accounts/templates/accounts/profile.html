@@ -11,9 +11,64 @@
     <section class="panel">
         {% if user.is_authenticated %}
                 <h2>Welcome, {{ user.username }}!</h2>
-                <p>Email: {{ user.email }}</p>
-                <p>First name: {{ user.first_name }}</p>
-                <p>Last name: {{ user.last_name }}</p>
+                <div class="user-details">
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>First name:</strong> {{ user.first_name }}</p>
+                    <p><strong>Last name:</strong> {{ user.last_name }}</p>
+                </div>
+
+                <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+                <h3>Your Progress</h3>
+
+                <div class="progress-section">
+                    <h4>Tutorials</h4>
+                    <p>Completed Sections: {{ tutorials_completed_count }}</p>
+                    {% if recent_tutorials %}
+                        <p class="small-text">Recent activity:</p>
+                        <ul>
+                            {% for t in recent_tutorials %}
+                                <li>{{ t.section_slug|title }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="progress-section">
+                    <h4>Past Papers</h4>
+                    <p>Questions Completed: {{ questions_count }}</p>
+                    {% if recent_questions %}
+                        <p class="small-text">Recently completed:</p>
+                        <ul>
+                            {% for c in recent_questions %}
+                                <li>{{ c.question }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="progress-section">
+                    <h4>Homework</h4>
+                    {% if submissions %}
+                        <ul>
+                            {% for s in submissions %}
+                                <li>
+                                    {{ s.assignment.title }}
+                                    <span class="status-badge" style="background:#eee; padding:2px 6px; border-radius:4px; font-size:0.8em">
+                                        {{ s.get_status_display }}
+                                    </span>
+                                    {% if s.grade %}
+                                        <span style="font-weight:bold; color: var(--primary);">{{ s.grade }}</span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No recent submissions.</p>
+                    {% endif %}
+                </div>
+
+                <br>
                 <form action="{% url 'logout' %}" method="post">
                         {% csrf_token %}
                         <button type="submit">Logout</button>

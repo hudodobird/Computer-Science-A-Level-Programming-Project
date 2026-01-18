@@ -1,7 +1,11 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
-from .models import HomeworkTemplate, Assignment, Submission
+from .models import HomeworkTemplate, Assignment, Submission, TestCase
+
+class TestCaseInline(admin.TabularInline):
+    model = TestCase
+    extra = 1
 
 @admin.register(HomeworkTemplate)
 class HomeworkTemplateAdmin(admin.ModelAdmin):
@@ -22,12 +26,13 @@ class AssignmentAdmin(admin.ModelAdmin):
             'classes': ('collapse',),
         }),
     )
+    inlines = [TestCaseInline]
 
 
 @admin.register(Submission)
 class SubmissionAdmin(admin.ModelAdmin):
-    list_display = ('student', 'assignment', 'submitted_at', 'view_code_link')
-    list_filter = ('assignment', 'submitted_at')
+    list_display = ('student', 'assignment', 'submitted_at', 'status', 'manual_review_requested', 'view_code_link')
+    list_filter = ('assignment', 'submitted_at', 'status', 'manual_review_requested')
     search_fields = ('student__username', 'assignment__title')
     readonly_fields = ('student', 'assignment', 'code', 'submitted_at')
 

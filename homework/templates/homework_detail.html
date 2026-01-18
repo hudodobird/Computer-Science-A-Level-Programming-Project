@@ -62,7 +62,9 @@
     const pk = "{{ assignment.pk }}";
 
     async function sendData(action) {
-        saveStatus.textContent = action === 'save' ? 'Saving...' : 'Submitting...';
+        saveStatus.textContent = action === 'save' ? 'Saving...' : 'Running Tests & Submitting...';
+        saveStatus.style.color = '#666';
+        
         try {
             const res = await fetch(`/homework/${pk}/submit/`, {
                 method: 'POST',
@@ -76,11 +78,51 @@
                 })
             });
             const data = await res.json();
+            
             if (res.ok) {
-                saveStatus.textContent = data.message;
                 if (action === 'submit') {
-                    saveStatus.style.color = 'green';
-                    setTimeout(() => window.location.href = "{% url 'homework' %}", 1000);
+                    if (data.status === 'submitted') {
+                        saveStatus.textContent = "✅ " + data.message;
+                        saveStatus.style.color = 'green';
+                        // Show success feedback
+                        document.querySelector('.desc-panel').innerHTML += `
+                            <div class="feedback-box success">
+                                <h3>Feedback</h3>
+                                ${data.feedback}
+                            </div>
+                        `;
+                        setTimeout(() => window.location.href = "{% url 'homework' %}", 2000);
+                    } else {
+                        saveStatus.textContent = "❌ Submission Failed";
+                        saveStatus.style.color = 'red';
+                        // Show failure feedback
+                        const feedbackDiv = document.createElement('div');
+                        feedbackDiv.className = 'feedback-box error';
+                        feedbackDiv.style.marginTop = '20px';
+                        feedbackDiv.style.padding = '15px';
+                        feedbackDiv.style.background = '#ffebee';
+                        feedbackDiv.style.border = '1px solid #ffcdd2';
+                        feedbackDiv.innerHTML = `<h3>Test Results</h3>${data.feedback}`;
+                        
+                        if (data.can_request_review) {
+                             feedbackDiv.innerHTML += `
+                                <div style="margin-top:15px; border-top:1px solid #ffcdd2; padding-top:10px;">
+                                    <p>Believe your code is correct?</p>
+                                    <button onclick="if(confirm('Request manual review from teacher?')) sendData('request_review')" 
+                                            class="btn" style="background:#555; color:white; padding:5px 10px;">
+                                        Request Manual Review
+                                    </button>
+                                </div>
+                             `;
+                        }
+
+                        // Replace old feedback
+                        const oldFeedback = document.querySelector('.feedback-box');
+                        if (oldFeedback) oldFeedback.remove();
+                        document.querySelector('.desc-panel').appendChild(feedbackDiv);
+                    }
+                } else {
+                    saveStatus.textContent = data.message;
                 }
             } else {
                 saveStatus.textContent = 'Error saving.';
