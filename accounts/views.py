@@ -44,7 +44,9 @@ def signup(request):
             email = EmailMessage(
                 mail_subject, message, to=[to_email]
             )
+
             email.send()
+            
 
             messages.success(request, "Please confirm your email address to complete the registration. Check your specific email inbox (or the terminal if testing).")
             return redirect('login') # Redirect to login page instead of home so they know what to do next
