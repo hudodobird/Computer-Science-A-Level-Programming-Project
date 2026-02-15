@@ -42,6 +42,21 @@ def homework_detail(request, pk):
         'submission': submission,
     })
 
+
+@login_required
+def homework_template_detail(request, pk):
+    """API endpoint for fetching HomeworkTemplate details as JSON."""
+    from .models import HomeworkTemplate
+    try:
+        template = HomeworkTemplate.objects.get(pk=pk)
+        return JsonResponse({
+            'title': template.title,
+            'description': template.description,
+            'starter_code': template.starter_code,
+        })
+    except HomeworkTemplate.DoesNotExist:
+        return JsonResponse({'error': 'Template not found'}, status=404)
+
 @login_required
 @require_POST
 def submit_homework(request, pk):
